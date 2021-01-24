@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gdh.todo_list_practice.R
-import com.gdh.todo_list_practice.model.TodoModel
+import com.gdh.todo_list_practice.model.Todo
 import kotlinx.android.synthetic.main.todo_list_item.view.*
 
-class TodoListAdapter(val todoItems : ArrayList<TodoModel>) : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHolder>(){
+class TodoListAdapter(val todoItems : ArrayList<Todo>) : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHolder>(){
 //    private var todoItems: List<TodoModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoListAdapter.CustomTodoViewHolder {
@@ -32,9 +32,9 @@ class TodoListAdapter(val todoItems : ArrayList<TodoModel>) : RecyclerView.Adapt
         val content = itemView.tv_todo_content
         val date = itemView.tv_todo_date
 
-        fun bind(todoModel: TodoModel){
-            content.text = todoModel.content
-            date.text = todoModel.date.toString()
+        fun bind(todo: Todo){
+            content.text = todo.content
+            date.text = todo.date.toString()
         }
     }
 }
