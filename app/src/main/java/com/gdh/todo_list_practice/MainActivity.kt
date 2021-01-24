@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gdh.todo_list_practice.model.Todo
 import com.gdh.todo_list_practice.view.adapter.TodoListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mTodoListAdapter: TodoListAdapter
@@ -16,15 +18,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mTodoItems.run {
-            add(Todo("운동하기", 2021))
-            add(Todo("공부하기", 2021))
-            add(Todo("빨래하기", 2021))
-            add(Todo("청소하기", 2021))
-            add(Todo("학원가기", 2021))
-            add(Todo("낮잠자기", 2021))
-            add(Todo("일기쓰기", 2021))
-            add(Todo("책사기", 2021))
-            add(Todo("충전하기", 2021))
+            add(Todo("운동하기", Date().time))
+            add(Todo("공부하기", Date().time))
+            add(Todo("빨래하기", Date().time))
+            add(Todo("청소하기", Date().time))
+            add(Todo("학원가기", Date().time))
+            add(Todo("낮잠자기", Date().time))
+            add(Todo("일기쓰기", Date().time))
+            add(Todo("책사기", Date().time))
+            add(Todo("충전하기", Date().time))
         }
         initRecyclerView()
     }

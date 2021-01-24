@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gdh.todo_list_practice.R
 import com.gdh.todo_list_practice.model.Todo
 import kotlinx.android.synthetic.main.todo_list_item.view.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 class TodoListAdapter(val todoItems : ArrayList<Todo>) : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHolder>(){
 //    private var todoItems: List<TodoModel> = listOf()
@@ -31,10 +33,11 @@ class TodoListAdapter(val todoItems : ArrayList<Todo>) : RecyclerView.Adapter<To
     class CustomTodoViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val content = itemView.tv_todo_content
         val date = itemView.tv_todo_date
+        var sdf = SimpleDateFormat("yyyy년 M월 d일 a h시 m분")
 
         fun bind(todo: Todo){
             content.text = todo.content
-            date.text = todo.date.toString()
+            date.text = sdf.format(todo.date)
         }
     }
 }
