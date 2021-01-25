@@ -1,8 +1,9 @@
-package com.gdh.todo_list_practice
+package com.gdh.todo_list_practice.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gdh.todo_list_practice.R
 import com.gdh.todo_list_practice.model.Todo
 import com.gdh.todo_list_practice.view.adapter.TodoListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,6 +30,17 @@ class MainActivity : AppCompatActivity() {
             add(Todo("충전하기", Date().time))
         }
         initRecyclerView()
+        initAddButton()
+    }
+    private fun initAddButton(){
+        btn_add_todo.setOnClickListener {
+            val content = et_todo.text.toString()
+            et_todo.text.clear()
+            val date = Date().time
+            val todo = Todo(content, date)
+            mTodoListAdapter.addItem(todo)
+            mTodoListAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun initRecyclerView(){

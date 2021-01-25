@@ -30,6 +30,10 @@ class TodoListAdapter(val todoItems : ArrayList<Todo>) : RecyclerView.Adapter<To
         return todoItems.size
     }
 
+    fun addItem(todo : Todo){
+        todoItems.add(todo)
+    }
+
     class CustomTodoViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val content = itemView.tv_todo_content
         val date = itemView.tv_todo_date
