@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Todo(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    var id: Long? = null,
 
     @ColumnInfo(name = "comment")
     var content: String,
