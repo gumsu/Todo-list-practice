@@ -2,6 +2,7 @@ package com.gdh.todo_list_practice.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gdh.todo_list_practice.R
@@ -29,8 +30,8 @@ class MainActivity : AppCompatActivity() {
     private fun initViewModel(){
         mTodoViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(TodoViewModel::class.java)
 
-        mTodoViewModel.getAllTodoList().observe(this, Observer { todos ->
-            mTodoListAdapter.setTodoItems(todos)
+        mTodoViewModel.getAllTodoList().observe(this, Observer {
+            mTodoListAdapter.setTodoItems(it)
         })
     }
 
@@ -40,13 +41,12 @@ class MainActivity : AppCompatActivity() {
             et_todo.text.clear()
             val date = Date().time
             val todo = Todo(null, content, date)
-            mTodoListAdapter.addItem(todo)
-            mTodoListAdapter.notifyDataSetChanged()
+            mTodoViewModel.insertTodo(todo)
         }
     }
 
     private fun initRecyclerView(){
-        mTodoListAdapter = TodoListAdapter(mTodoItems)
+        mTodoListAdapter = TodoListAdapter()
         rv_todo_list.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)

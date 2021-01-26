@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.todo_list_item.view.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 
-class TodoListAdapter(val todoItems : ArrayList<Todo>) : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHolder>(){
-//    private var todoItems: List<TodoModel> = listOf()
+class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHolder>(){
+    private var todoItems: List<Todo> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoListAdapter.CustomTodoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.todo_list_item, parent, false)
@@ -31,10 +31,8 @@ class TodoListAdapter(val todoItems : ArrayList<Todo>) : RecyclerView.Adapter<To
     }
 
     fun setTodoItems(todoItems: List<Todo>){
-
-    }
-    fun addItem(todo : Todo){
-        todoItems.add(todo)
+        this.todoItems = todoItems
+        notifyDataSetChanged()
     }
 
     class CustomTodoViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
