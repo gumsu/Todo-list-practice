@@ -30,6 +30,9 @@ class TodoListAdapter(val todoItems : ArrayList<Todo>) : RecyclerView.Adapter<To
         return todoItems.size
     }
 
+    fun setTodoItems(todoItems: List<Todo>){
+
+    }
     fun addItem(todo : Todo){
         todoItems.add(todo)
     }

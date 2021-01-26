@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewModel(){
         mTodoViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(TodoViewModel::class.java)
+
+        mTodoViewModel.getAllTodoList().observe(this, Observer { todos ->
+            mTodoListAdapter.setTodoItems(todos)
+        })
     }
 
     private fun initAddButton(){
