@@ -1,5 +1,6 @@
 package com.gdh.todo_list_practice.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.gdh.todo_list_practice.model.Todo
 
@@ -7,7 +8,7 @@ import com.gdh.todo_list_practice.model.Todo
 interface TodoDAO {
 
     @Query("SELECT * FROM Todo ORDER BY date ASC")
-    fun getAllTodoList() : List<Todo>
+    fun getAllTodoList() : LiveData<List<Todo>>
 
     @Insert
     fun insertTodo(todo:Todo)

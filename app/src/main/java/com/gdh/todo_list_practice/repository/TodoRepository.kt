@@ -1,6 +1,7 @@
 package com.gdh.todo_list_practice.repository
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import com.gdh.todo_list_practice.database.TodoDAO
 import com.gdh.todo_list_practice.database.TodoDatabase
 import com.gdh.todo_list_practice.model.Todo
@@ -8,7 +9,7 @@ import com.gdh.todo_list_practice.model.Todo
 class TodoRepository(application: Application) {
     private var mTodoDatabase : TodoDatabase
     private var mTodoDAO : TodoDAO
-    private var mTodoItems : List<Todo>
+    private var mTodoItems : LiveData<List<Todo>>
 
     init {
         mTodoDatabase = TodoDatabase.getInstance(application)
@@ -16,7 +17,7 @@ class TodoRepository(application: Application) {
         mTodoItems = mTodoDAO.getAllTodoList()
     }
 
-    fun getAllTodoList() : List<Todo>{
+    fun getAllTodoList() : LiveData<List<Todo>>{
         return mTodoItems
     }
 
