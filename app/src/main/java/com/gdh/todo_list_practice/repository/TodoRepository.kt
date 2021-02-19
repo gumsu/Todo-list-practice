@@ -26,4 +26,10 @@ class TodoRepository(application: Application) {
             mTodoDAO.insertTodo(todo)
         }).start()
     }
+
+    fun deleteTodo(todo: Todo){
+        Thread(kotlinx.coroutines.Runnable {
+            mTodoDAO.deleteTodo(todo)
+        }).start()
+    }
 }

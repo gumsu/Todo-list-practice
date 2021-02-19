@@ -2,6 +2,7 @@ package com.gdh.todo_list_practice.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
@@ -14,6 +15,7 @@ import com.gdh.todo_list_practice.model.Todo
 import com.gdh.todo_list_practice.view.adapter.TodoListAdapter
 import com.gdh.todo_list_practice.viewmodel.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.todo_list_item.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -59,7 +61,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView(){
-        mTodoListAdapter = TodoListAdapter()
+        mTodoListAdapter = TodoListAdapter().apply {
+            listener = object :TodoListAdapter.onTodoItemClickListener {
+                override fun deleteButton(position: Int) {
+                    mTodoViewModel.deleteTodo(getTodoItem(position))
+                }
+            }
+        }
         rv_todo_list.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)

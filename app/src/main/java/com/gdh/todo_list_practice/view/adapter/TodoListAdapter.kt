@@ -14,10 +14,15 @@ import java.time.LocalDate
 
 class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHolder>(){
     private var todoItems: List<Todo> = listOf()
+    var listener: onTodoItemClickListener? = null
+
+    interface onTodoItemClickListener{
+        fun deleteButton(position: Int)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoListAdapter.CustomTodoViewHolder {
         return DataBindingUtil.inflate<TodoListItemBinding>(LayoutInflater.from(parent.context),R.layout.todo_list_item, parent, false).let {
-            CustomTodoViewHolder(it)
+            CustomTodoViewHolder(it, listener)
         }
     }
 
@@ -34,7 +39,19 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
         notifyDataSetChanged()
     }
 
-    class CustomTodoViewHolder(private val binding : TodoListItemBinding) : RecyclerView.ViewHolder(binding.root){
+    fun getTodoItem(position: Int): Todo{
+        return todoItems[position]
+    }
+
+    class CustomTodoViewHolder(private val binding : TodoListItemBinding, listener: onTodoItemClickListener?) : RecyclerView.ViewHolder(binding.root){
+
+        private val deleteTodoItem = binding.ivTodoDelete
+
+        init {
+            itemView.setOnClickListener {
+                listener?.deleteButton(adapterPosition)
+            }
+        }
 
         fun bind(todo: Todo){
             binding.model = todo
