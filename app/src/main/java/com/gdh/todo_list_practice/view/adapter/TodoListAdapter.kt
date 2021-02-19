@@ -3,8 +3,10 @@ package com.gdh.todo_list_practice.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gdh.todo_list_practice.R
+import com.gdh.todo_list_practice.databinding.TodoListItemBinding
 import com.gdh.todo_list_practice.model.Todo
 import kotlinx.android.synthetic.main.todo_list_item.view.*
 import java.text.SimpleDateFormat
@@ -14,16 +16,13 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
     private var todoItems: List<Todo> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoListAdapter.CustomTodoViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.todo_list_item, parent, false)
-        val viewHolder = CustomTodoViewHolder(view)
-
-        return viewHolder
+        return DataBindingUtil.inflate<TodoListItemBinding>(LayoutInflater.from(parent.context),R.layout.todo_list_item, parent, false).let {
+            CustomTodoViewHolder(it)
+        }
     }
 
     override fun onBindViewHolder(holder: TodoListAdapter.CustomTodoViewHolder, position: Int) {
-        val todoModel = todoItems[position]
-        val todoViewHolder = holder as CustomTodoViewHolder
-        todoViewHolder.bind(todoModel)
+        (holder as? CustomTodoViewHolder)?.bind(todoItems.getOrNull(position) ?: return)
     }
 
     override fun getItemCount(): Int {
@@ -35,14 +34,11 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
         notifyDataSetChanged()
     }
 
-    class CustomTodoViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val content = itemView.tv_todo_content
-        val date = itemView.tv_todo_date
-        var sdf = SimpleDateFormat("yyyy년 M월 d일 a h시 m분")
+    class CustomTodoViewHolder(private val binding : TodoListItemBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(todo: Todo){
-            content.text = todo.content
-            date.text = sdf.format(todo.date)
+            binding.model = todo
+            binding.executePendingBindings()
         }
     }
 }
