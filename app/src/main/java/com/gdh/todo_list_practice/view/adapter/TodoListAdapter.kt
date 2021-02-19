@@ -48,7 +48,7 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
         private val deleteTodoItem = binding.ivTodoDelete
 
         init {
-            itemView.setOnClickListener {
+            deleteTodoItem.setOnClickListener {
                 listener?.deleteButton(adapterPosition)
             }
         }
