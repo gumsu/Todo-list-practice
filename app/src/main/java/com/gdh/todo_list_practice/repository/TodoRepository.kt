@@ -1,10 +1,14 @@
 package com.gdh.todo_list_practice.repository
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import com.gdh.todo_list_practice.database.TodoDAO
 import com.gdh.todo_list_practice.database.TodoDatabase
 import com.gdh.todo_list_practice.model.Todo
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class TodoRepository(application: Application) {
     private var mTodoDatabase : TodoDatabase
@@ -22,14 +26,21 @@ class TodoRepository(application: Application) {
     }
 
     fun insertTodo(todo: Todo){
-        Thread(kotlinx.coroutines.Runnable {
-            mTodoDAO.insertTodo(todo)
-        }).start()
+        Observable.just(todo)
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                mTodoDAO.insertTodo(todo)
+            }, {
+            })
     }
 
     fun deleteTodo(todo: Todo){
-        Thread(kotlinx.coroutines.Runnable {
-            mTodoDAO.deleteTodo(todo)
-        }).start()
+        Observable.just(todo)
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                mTodoDAO.deleteTodo(todo)
+            }, {
+
+            })
     }
 }
