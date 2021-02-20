@@ -26,4 +26,8 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     fun getAllTodoList(): LiveData<List<Todo>>{
         return mTodoItems
     }
+
+    fun cancelTodo(todo: Todo){
+
+    }
 }

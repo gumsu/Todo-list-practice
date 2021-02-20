@@ -1,5 +1,6 @@
 package com.gdh.todo_list_practice.view
 
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -66,6 +67,15 @@ class MainActivity : AppCompatActivity() {
                 override fun deleteButton(position: Int) {
                     mTodoViewModel.deleteTodo(getTodoItem(position))
                 }
+
+                override fun changeStateButton(position: Int, isChecked: Boolean) {
+                    if (isChecked) {
+                        Log.d("로그", "cancelButton: $position 체크")
+                    }
+                    else {
+                        Log.d("로그", "cancelButton: $position 체크해제")
+                    }
+                }
             }
         }
         rv_todo_list.run {
@@ -82,5 +92,6 @@ class MainActivity : AppCompatActivity() {
             val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm",Locale.getDefault())
             tv.text = simpleDateFormat.format(date)
         }
+
     }
 }

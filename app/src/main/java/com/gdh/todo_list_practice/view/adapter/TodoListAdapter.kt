@@ -1,16 +1,12 @@
 package com.gdh.todo_list_practice.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gdh.todo_list_practice.R
 import com.gdh.todo_list_practice.databinding.TodoListItemBinding
 import com.gdh.todo_list_practice.model.Todo
-import kotlinx.android.synthetic.main.todo_list_item.view.*
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 
 class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHolder>(){
     private var todoItems: List<Todo> = listOf()
@@ -18,6 +14,7 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
 
     interface onTodoItemClickListener{
         fun deleteButton(position: Int)
+        fun changeStateButton(position: Int, isChecked: Boolean)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoListAdapter.CustomTodoViewHolder {
@@ -46,10 +43,14 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
     class CustomTodoViewHolder(private val binding : TodoListItemBinding, listener: onTodoItemClickListener?) : RecyclerView.ViewHolder(binding.root){
 
         private val deleteTodoItem = binding.ivTodoDelete
+        private val cancelTodoItem = binding.checkBox
 
         init {
             deleteTodoItem.setOnClickListener {
                 listener?.deleteButton(adapterPosition)
+            }
+            cancelTodoItem.setOnCheckedChangeListener { compoundButton, isChecked ->
+                listener?.changeStateButton(adapterPosition, isChecked)
             }
         }
 
