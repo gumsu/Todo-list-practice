@@ -18,4 +18,7 @@ interface TodoDAO {
 
     @Delete
     fun deleteTodo(todo: Todo)
+
+    @Query("SELECT count(*) FROM todo")
+    fun getAllTodoCount() : LiveData<Int>
 }

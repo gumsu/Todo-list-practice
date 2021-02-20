@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         initAddButton()
         initViewModel()
         observeViewModel()
+        initCountViewModel()
     }
     private fun initDataBinding() {
         mDataBinding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
@@ -68,6 +69,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun initCountViewModel(){
+        mTodoViewModel.getAllTodoCount().observe(this, {
+            mDataBinding.tvTodoCount.text = mTodoListAdapter.getTodoItemCount().toString()
+        })
+    }
     private fun initRecyclerView(){
         mTodoListAdapter = TodoListAdapter().apply {
             listener = object :TodoListAdapter.onTodoItemClickListener {

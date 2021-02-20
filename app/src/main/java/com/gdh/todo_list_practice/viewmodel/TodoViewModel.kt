@@ -30,4 +30,8 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     fun updateTodo(todo: Todo){
         mTodoRepository.updateTodo(todo)
     }
+
+    fun getAllTodoCount(): LiveData<Int>{
+        return mTodoRepository.getAllTodoCount()
+    }
 }

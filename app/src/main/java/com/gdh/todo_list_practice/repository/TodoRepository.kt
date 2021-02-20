@@ -53,4 +53,8 @@ class TodoRepository(application: Application) {
 
             })
     }
+
+    fun getAllTodoCount(): LiveData<Int>{
+        return mTodoDAO.getAllTodoCount()
+    }
 }

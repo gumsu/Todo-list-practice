@@ -41,6 +41,9 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
     fun getTodoItem(position: Int): Todo{
         return todoItems[position]
     }
+    fun getTodoItemCount(): Int {
+        return todoItems.size
+    }
 
     class CustomTodoViewHolder(private val binding : TodoListItemBinding, listener: onTodoItemClickListener?) : RecyclerView.ViewHolder(binding.root){
 
