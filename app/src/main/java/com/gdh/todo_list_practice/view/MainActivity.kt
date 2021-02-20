@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        rv_todo_list.run {
+        mDataBinding.rvTodoList.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = mTodoListAdapter
