@@ -1,10 +1,13 @@
 package com.gdh.todo_list_practice.view
 
+import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.core.view.get
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -17,6 +20,7 @@ import com.gdh.todo_list_practice.view.adapter.TodoListAdapter
 import com.gdh.todo_list_practice.viewmodel.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.todo_list_item.*
+import kotlinx.android.synthetic.main.todo_list_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -71,9 +75,19 @@ class MainActivity : AppCompatActivity() {
                 override fun changeStateButton(position: Int, isChecked: Boolean) {
                     if (isChecked) {
                         Log.d("로그", "cancelButton: $position 체크")
+                        mDataBinding.rvTodoList[position].tv_todo_content.apply {
+                            paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                            setTextColor(Color.GRAY)
+                            setTypeface(null, Typeface.ITALIC)
+                        }
                     }
                     else {
                         Log.d("로그", "cancelButton: $position 체크해제")
+                        mDataBinding.rvTodoList[position].tv_todo_content.apply {
+                            paintFlags = 0
+                            setTextColor(Color.BLACK)
+                            setTypeface(null, Typeface.NORMAL)
+                        }
                     }
                 }
             }
