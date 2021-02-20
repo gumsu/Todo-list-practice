@@ -15,6 +15,7 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
     interface onTodoItemClickListener{
         fun deleteButton(position: Int)
         fun changeStateButton(position: Int, isChecked: Boolean)
+        fun modifyButton(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoListAdapter.CustomTodoViewHolder {
@@ -44,6 +45,7 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
 
         private val deleteTodoItem = binding.ivTodoDelete
         private val cancelTodoItem = binding.checkBox
+        private val modifyTodoItem = binding.tvTodoContent
 
         init {
             deleteTodoItem.setOnClickListener {
@@ -51,6 +53,10 @@ class TodoListAdapter() : RecyclerView.Adapter<TodoListAdapter.CustomTodoViewHol
             }
             cancelTodoItem.setOnCheckedChangeListener { compoundButton, isChecked ->
                 listener?.changeStateButton(adapterPosition, isChecked)
+            }
+            modifyTodoItem.setOnLongClickListener {
+                listener?.modifyButton(adapterPosition)
+                return@setOnLongClickListener true
             }
         }
 

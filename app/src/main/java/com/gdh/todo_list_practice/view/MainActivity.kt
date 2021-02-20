@@ -90,6 +90,10 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
+
+                override fun modifyButton(position: Int) {
+                    Log.d("로그", "modifyButton: $position 수정")
+                }
             }
         }
         rv_todo_list.run {
