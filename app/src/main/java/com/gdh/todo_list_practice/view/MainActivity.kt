@@ -3,11 +3,14 @@ package com.gdh.todo_list_practice.view
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -56,9 +59,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
     private fun initAddButton(){
-        btn_add_todo.setOnClickListener {
-            val content = et_todo.text.toString()
-            et_todo.text.clear()
+        mDataBinding.btnAddTodo.setOnClickListener {
+            val content = mDataBinding.etTodo.text.toString()
+            mDataBinding.etTodo.text.clear()
             val date = Date().time
             val todo = Todo(null, content, date)
             mTodoViewModel.insertTodo(todo)
@@ -91,8 +94,27 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun modifyButton(position: Int) {
+                override fun modifyStateButton(position: Int) {
                     Log.d("로그", "modifyButton: $position 수정")
+                    mDataBinding.rvTodoList[position].tv_todo_content.visibility = View.GONE
+                    mDataBinding.rvTodoList[position].et_todo_content.visibility = View.VISIBLE
+                    mTodoListAdapter.notifyDataSetChanged()
+                }
+
+                override fun modifyButton(position: Int) {
+                    completeModify(getTodoItem(position), position)
+                    mTodoListAdapter.notifyDataSetChanged()
+                }
+
+                fun completeModify(todo: Todo, position: Int) {
+                    val content = mDataBinding.rvTodoList[position].et_todo_content.text.toString()
+                    val date = Date().time
+                    todo.content = content
+                    todo.date = date
+                    mTodoViewModel.updateTodo(todo)
+
+                    mDataBinding.rvTodoList[position].tv_todo_content.visibility = View.VISIBLE
+                    mDataBinding.rvTodoList[position].et_todo_content.visibility = View.GONE
                 }
             }
         }

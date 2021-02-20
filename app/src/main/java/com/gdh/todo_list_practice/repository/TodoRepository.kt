@@ -43,4 +43,14 @@ class TodoRepository(application: Application) {
 
             })
     }
+
+    fun updateTodo(todo: Todo){
+        Observable.just(todo)
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                mTodoDAO.updateTodo(todo)
+            }, {
+
+            })
+    }
 }
